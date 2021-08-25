@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import Contacts from './Contacts/Contacts';
 // import Input from './Input/Input';
 import { v4 as uuidv4 } from 'uuid';
+import s from '../Components/app.module.css';
 
 
 class App extends Component {
@@ -96,8 +97,10 @@ class App extends Component {
 
         render() {
         return (
-            <>
+            <div className={s.section}>
                 <h1>PhoneBook</h1>
+                <div className={s.interface}>
+                     
                     <div>
                         <h2>Name</h2>
                         <input
@@ -110,7 +113,8 @@ class App extends Component {
                             required
                         />
                         <h2>Phone</h2>    
-                        <input
+                    <input
+                        className={s.inputTel}
                             type="tel"
                                 name="number"
                                 onChange={this.handleChangephnone}
@@ -120,8 +124,10 @@ class App extends Component {
                             required
                         />
 
-                        <button type="button" onClick={this.handleClick}>Add contact</button>
+                    <button type="button" onClick={this.handleClick} className={s.buttonAdd}>Add contact</button>
                     </div>
+                </div>
+               
                 {/* <ContactForm  /> */}
                 <h2>Contacts</h2>
                 <input type="text" onChange={this.filter}/>
@@ -133,7 +139,7 @@ class App extends Component {
                         ))}
                     </ul>
                 </div>
-            </>
+            </div>
         );
     }
 }
