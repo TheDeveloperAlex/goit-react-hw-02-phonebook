@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-// import s from '../app.module.css';
 import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
@@ -13,7 +12,7 @@ class ContactForm extends Component {
     handleChangephnone = e => {
         const value = e.target.value;
         this.setState({ number: value });
-        // {console.log(this.props);}
+        
             
     }
     handleChange = (e) => {

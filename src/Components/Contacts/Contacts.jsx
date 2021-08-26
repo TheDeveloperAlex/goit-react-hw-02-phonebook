@@ -1,12 +1,7 @@
 import s from './Contacts.module.css';
 
 const Contacts = ({ contacts, filter, fnFilter, removeContact}) => {
-// console.log(contacts);
-    // const renderContent = () => {
-    
-     
 
-    // }
     return (
         <div>
             <h2>Contacts</h2>

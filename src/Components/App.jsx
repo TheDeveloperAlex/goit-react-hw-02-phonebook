@@ -25,7 +25,6 @@ class App extends Component {
     }
 
     validate = (dataUser) => {
-        console.log(dataUser);
         const res = this.state.contacts.filter(item => (
             item.name === dataUser.name
         ))
@@ -33,9 +32,8 @@ class App extends Component {
         const notValid = () => {
             isValid = false;
         };
-        res.length > 0 && alert('Eror, this name is already in contacts') 
+        res.length > 0 && alert(`Eror, ${dataUser.name} is already in contacts`) 
         res.length > 0 && notValid()
-        console.log(isValid);
         return (isValid);
     }
 
@@ -51,15 +49,6 @@ class App extends Component {
                 
                 <ContactForm formSubmit={this.formSubmit} validate={this.validate} />
                 <Contacts contacts={this.state.contacts} filter={this.state.filter} fnFilter={this.filter} removeContact={this.removeContact} />
-                {/* <div>
-                    <ul>
-                        {this.state.contacts.map(item => (
-                            <li key={item.id}> {item.name}: {item.number} <button type="button" id={item.id} onClick={this.removeContact}>Delete</button> </li>
-                            // this.state.filter &&
-                            // item.name.includes(this.state.filter) ? <li key={item.id}> {item.name}: {item.number} <button type="button" id={item.id} onClick={this.removeContact}>Delete</button> </li> : false
-                        ))}
-                    </ul>
-                </div> */}
             </div>
         );
     }
