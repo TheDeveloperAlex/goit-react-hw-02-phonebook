@@ -1,19 +1,22 @@
+import s from './Contacts.module.css';
 
-
-const Contacts = ({ contacts, filter }) => {
+const Contacts = ({ contacts, filter, fnFilter, removeContact}) => {
 // console.log(contacts);
     // const renderContent = () => {
-    const res = () => {
-        console.log(res);
-    }
+    
+     
+
     // }
     return (
         <div>
+            <h2>Contacts</h2>
+                <input type="text" onChange={fnFilter}/>
+
             <ul>
                 {contacts.map(item => (
-                    item.name.includes(filter) ? <li key={item.id}> {item.name}: {item.number} <button type="button"  onClick={res}></button> </li> : false
+                    item.name.includes(filter) ? <li key={item.id} className={s.li}> {item.name}: {item.number} <button type="button" id={item.id} onClick={removeContact} className={s.button}>Delete</button> </li> : false
                 ))}
-                    {/* <button type="button" onClick={}>Delete</button> */}
+                    
             </ul>
         </div>
     );

@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-// import ContactForm from './ContactForm/ContactForm';
-// import { state } from './ContactForm/ContactForm';
+import ContactForm from './ContactForm/ContactForm';
 import Contacts from './Contacts/Contacts';
-// import Input from './Input/Input';
-import { v4 as uuidv4 } from 'uuid';
 import s from '../Components/app.module.css';
 
 
@@ -16,80 +13,32 @@ class App extends Component {
             {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
         ],
         filter: '',
-         name: '',
-        number: '',
+         
     }
 
-    // formSubmit = (data) => this.setState(prevState => ({ contacts: [prevState.contacts, ...data]}))
-    // (function () {
-    // state.contact.map(item => (
-    //         this.state.contacts.push(item)
-    //     ))
-    // }());
-    
-    // addedContact = (contact) => {
-        
-    // }
+    formSubmit = (data) => this.setState(prevState => ({ contacts: [...prevState.contacts, data] }));
 
     removeContact = e => {
-        const id = e.target.id;
-        console.log(id);
-        const deleteArrEl = this.state.contacts.find(item => (
-            item.id === id
-        ))
-        console.log(deleteArrEl);
-        const index = this.state.contacts.indexOf(deleteArrEl);
-        console.log(index);
-        this.state.contacts.splice((index-1), index);
-        // this.state.contacts.map(item => (
-        //     item.id === id ? item.remove() : console.log('ok')
-        // ))
         this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id)
+      contacts: prevState.contacts.filter(contact => contact.id !== e.target.id)
     }));
     }
 
-    handleChangephnone = e => {
-        const value = e.target.value;
-        this.setState({ number: value });
-            
-    }
-    handleChange = (e) => {
-            const value = e.target.value;
-        this.setState({ name: value });
-        
-        
-        }
-    handleClick = e => {
-        
-        const target = e.target
-        const obj = {
-            name: this.state.name,
-            number: this.state.number,
-            id: uuidv4(),
-        }
-
-        {
-            const arr = this.state.contacts.filter(item => (
-                 item.name === this.state.name
-            ))
-            arr < 0 ? console.log('no') : this.state.contacts.push(obj)
-            // this.state.contacts.map(item => (
-            //     //  console.log(item.name) 
-            //     item.name === this.state.name ? console.log('no') : this.state.contacts.push(obj)
-            // ))
-        }
-        {
-            //     this.state.contacts.map(item => (
-            //         item.name === this.state.name    
-            //     )) && alert('Eror, this is already at contacts')
-            // }
-            this.setState({ name: '' });
-            this.setState({ number: '' });
-            document.getElementById('name').value = '';
-            document.getElementById('number').value = '';
+    validate = (dataUser) => {
+        console.log(dataUser);
+        const res = this.state.contacts.filter(item => (
+            item.name === dataUser.name
+        ))
+        let isValid = true;
+        const notValid = () => {
+            isValid = false;
         };
+        res.length > 0 && alert('Eror, this name is already in contacts') 
+        res.length > 0 && notValid()
+        console.log(isValid);
+        return (isValid);
     }
+
         filter = e => {
             const value = e.target.value;
             this.setState({ filter: value });
@@ -99,46 +48,18 @@ class App extends Component {
         return (
             <div className={s.section}>
                 <h1>PhoneBook</h1>
-                <div className={s.interface}>
-                     
-                    <div>
-                        <h2>Name</h2>
-                        <input
-                            type="text"
-                            name="name"
-                                onChange={this.handleChange}
-                                id="name"
-                            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-                            required
-                        />
-                        <h2>Phone</h2>    
-                    <input
-                        className={s.inputTel}
-                            type="tel"
-                                name="number"
-                                onChange={this.handleChangephnone}
-                                id="number"
-                            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-                            required
-                        />
-
-                    <button type="button" onClick={this.handleClick} className={s.buttonAdd}>Add contact</button>
-                    </div>
-                </div>
-               
-                {/* <ContactForm  /> */}
-                <h2>Contacts</h2>
-                <input type="text" onChange={this.filter}/>
-                {/* <Contacts contacts={this.state.contacts} filter={this.state.filter}/> */}
-                <div>
+                
+                <ContactForm formSubmit={this.formSubmit} validate={this.validate} />
+                <Contacts contacts={this.state.contacts} filter={this.state.filter} fnFilter={this.filter} removeContact={this.removeContact} />
+                {/* <div>
                     <ul>
                         {this.state.contacts.map(item => (
-                            item.name.includes(this.state.filter) ? <li key={item.id}> {item.name}: {item.number} <button type="button" id={item.id} onClick={this.removeContact}>Delete</button> </li> : false
+                            <li key={item.id}> {item.name}: {item.number} <button type="button" id={item.id} onClick={this.removeContact}>Delete</button> </li>
+                            // this.state.filter &&
+                            // item.name.includes(this.state.filter) ? <li key={item.id}> {item.name}: {item.number} <button type="button" id={item.id} onClick={this.removeContact}>Delete</button> </li> : false
                         ))}
                     </ul>
-                </div>
+                </div> */}
             </div>
         );
     }
